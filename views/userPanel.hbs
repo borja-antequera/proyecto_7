@@ -1,0 +1,116 @@
+<section>
+    <div class="wrapper-adminpanel">
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-10 offset-1 panelAdmin table-responsive">
+        {{#if correcto}}
+            <div class="alert alert-success">{{correcto}}</div>
+        {{/if}}
+        {{#if error}}
+            <div class="alert alert-warning">{{error}}</div>
+        {{/if}}
+        {{#if usuarios.length}}
+            <table class="table">
+                <thead class="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">email</th>
+                    <th scope="col">isAdmin</th>
+                    <th scope="col">Activo</th>
+                    <th scope="col">Borrar</th>
+                    <th scope="col">RecoverPass</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each usuarios}}
+                    <tr>
+                        <th scope="row">{{id}}</th>
+                        <td>{{nombre}}</td>
+                        <td>{{email}}</td>
+                        <td><input type="checkbox" {{#if isAdmin}} checked {{/if}} onclick='window.location.assign("/admins/userpanel/isAdmin/{{id}}")'></td>
+                        <td><input type="checkbox" {{#if active}} checked {{/if}} onclick='window.location.assign("/admins/userpanel/activo/{{id}}")'></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick='window.location.assign("/admins/userpanel/delete/{{id}}")'><span class="fa fa-trash"></span> </button>
+                        </td>
+                        <td class="buttonRecoverPass">
+                            <button type="button" class="btn btn-success" onclick='window.location.assign("/mailer/sendrecover/{{id}}")'><span class="fa fa-key"></span></button>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#userModal"><span class="fa fa-user-plus"></span> Crear Nuevo </button>
+            </div>
+        </div>
+        </div>
+        </div>
+        {{/if}}
+    </div>
+    <!-- Modal de creacion de usuario -->
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Añadir Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admins/userpanel/crear" method="post">
+                        <div class="form-group">
+                            <input type="text" name="nombre" id="nombre" placeholder="Nombre"
+                                   class="form-control form-control-sm" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" placeholder="Email"
+                                   class="form-control form-control-sm" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" placeholder="Password"
+                                   class="form-control form-control-sm" required>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-dark btn-sm">Crear Usuario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="Page navigation example">
+
+        <ul class="pagination">
+
+            <!-- anterior enlace -->
+            {{#with paginate}}
+                {{#if hasPreviousPages}}<!--res.locals.hasPreviousPages-->
+                    <li class="page-item prev">
+                        <a class="page-link" href="{{prev_link this}}">Anterior</a>
+                    </li>
+                {{/if}}
+            {{/with}}
+
+            <!-- del 1 al n -->
+            {{#each links}}
+                <li class="page-item {{is_active @index ../currentPage }}"><!-- custom helper -->
+                    <a class="page-link" href="{{url}}">{{number}}</a>
+                </li>
+            {{/each}}
+
+            <!-- siguiente enlace -->
+            {{#with paginate}}
+                {{#has_next_links ../pageCount this}}
+                    <li class="page-item next">
+                        <a class="page-link" href="{{next_link ../this}}">Siguiente</a>
+                    </li>
+                {{/has_next_links}}
+            {{/with}}
+        </ul>
+
+
+    </nav>
+</section>

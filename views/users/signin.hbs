@@ -1,0 +1,82 @@
+<section id="sectionLogin">
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="col-md-6 col-xs-10 mx-auto top3em">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- form -->
+                        <form id="formLogin" action="/users/login" method="post">
+                            {{#if registroOk}}
+                                <div class="alert alert-success">{{registroOk}}</div>
+                            {{/if}}
+                            {{#if chancePass}}
+                                <div class="alert alert-success">{{chancePass}}</div>
+                            {{/if}}
+                            <div>
+                                <h3 class="userLog"> <span class="fas fa-user"></span> Iniciar Sesión </h3>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" id="email" placeholder="Email" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" placeholder="Password"
+                                       class="form-control form-control-sm">
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-outline-dark btn-sm">Iniciar Sesion</button>
+                            </div>
+
+                        </form>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#recovery">
+                                ¿Olvidaste tu contraseña?
+                            </button>
+                        </div>
+                        {{#if errorMailReg}}
+                            <div class="alert alert-warning">{{errorMailReg}}</div>
+                        {{/if}}
+
+                        {{#if correctRecovery}}
+                            <div class="alert alert-warning">{{correctRecovery}}</div>
+                        {{/if}}
+                        {{#if errorEmail2}}
+                            <div class="alert alert-warning">{{errorEmail2}}</div>
+                        {{/if}}
+                        {{#if errorEmail}}
+                            <div class="alert alert-warning">{{errorEmail}}</div>
+                        {{/if}}
+                        {{#if errorPassword}}
+                            <div class="alert alert-warning">{{errorPassword}}</div>
+                        {{/if}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal recuperar contraseña -->
+    <div class="modal fade" id="recovery" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Recuperación de contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/mailer/recovery" method="post">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduce email">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-outline-success btn-sm">Recuperar contraseña</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

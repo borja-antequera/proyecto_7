@@ -1,0 +1,22 @@
+{
+  "name": "proyecto4",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Borja <borjaantequera@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1"
+  }
+}
